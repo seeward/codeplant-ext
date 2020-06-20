@@ -877,7 +877,7 @@ class Seeward {
 
         this.player = sprites.create(this.stillAnimation[0], kind);
         this.player.setFlag(SpriteFlag.StayInScreen, true);
-        this.player.ay = this.gravity;
+        // this.player.ay = this.gravity;
         this.player.x = x;
         this.player.y = y;
 
@@ -1743,7 +1743,7 @@ class Seeward {
                 . . . 4 4 . . . . b e e .
                 . . . b e e . . . f f f .
                 . . . f f f . . . . . . .
-     `, img`
+        `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1769,7 +1769,7 @@ class Seeward {
                 . . . . b e e . . 4 4 . .
                 . . . . f f f . . b e e .
                 . . . . . . . . . f f f .
-     `, img`
+        `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1795,7 +1795,7 @@ class Seeward {
                 . . . 4 4 . . . 4 4 . . .
                 . . . b e e . . b e e . .
                 . . . f f f . . f f f . .
-     `, img`
+        `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
