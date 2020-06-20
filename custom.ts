@@ -791,16 +791,24 @@ namespace codeplant {
     export function playWalkRightAnimation() {
         _seeward.playWalkRightAnimation()
     }
-    //% blockId=SeewardIdlet block="Seeward Idle Front Animation"
+    //% blockId=SeewardIdle block="Seeward Idle Front Animation"
     //% weight=100
     //% group="Seeward Animations"
     export function playIdleFrontAnimation() {
         _seeward.playIdleRightAnimation()
     }
-
-
-
-
+    //% blockId=SeewardWalkDown block="Seeward Walk Down Animation"
+    //% weight=100
+    //% group="Seeward Animations"
+    export function playWalkDownAnimation() {
+        _seeward.playUpDownAnimation()
+    }
+    //% blockId=SeewardWalkUp block="Seeward Walk Up Animation"
+    //% weight=100
+    //% group="Seeward Animations"
+    export function playWalkUpAnimation() {
+        _seeward.playIdleBackAnimation()
+    }
 
 
     // Round input towards 0; 1.4 becomes 1.0, -0.4 becomes 0.0
@@ -1743,7 +1751,7 @@ class Seeward {
                 . . . 4 4 . . . . b e e .
                 . . . b e e . . . f f f .
                 . . . f f f . . . . . . .
-        `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1769,7 +1777,7 @@ class Seeward {
                 . . . . b e e . . 4 4 . .
                 . . . . f f f . . b e e .
                 . . . . . . . . . f f f .
-        `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1795,7 +1803,7 @@ class Seeward {
                 . . . 4 4 . . . 4 4 . . .
                 . . . b e e . . b e e . .
                 . . . f f f . . f f f . .
-        `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
