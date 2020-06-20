@@ -1090,7 +1090,7 @@ class Seeward {
     //% weight=100 blockGap=5
     updateSprite(on: boolean = true): void {
         let _this = this;
-
+        this.animateAttack()
         this.updateFlags(on, codeplant.seewardFlags.UpdateSprite);
 
         game.onUpdate(function () {
@@ -1098,7 +1098,7 @@ class Seeward {
 
             _this.count++;
 
-            this.animateAttack()
+            
         })
     }
 
