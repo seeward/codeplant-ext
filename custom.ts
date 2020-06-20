@@ -1,7 +1,7 @@
 /**
 * Sprite Wrapper for a Codeplant lessons
 */
-//% weight=100 color=#d2b48c icon="\uf1b0"
+//% weight=100 color=#d2b48c 
 //% groups='["Create", "Movement", "Speak", "Properties"]'
 namespace codeplant {
     export enum CorgiFlags {
