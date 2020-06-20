@@ -767,7 +767,7 @@ namespace codeplant {
         return _seeward
 
     }
-    //% blockId=seewardAttackLeft block="Play Attack Left"
+    //% blockId=SeewardAttackLeft block="Seeward Attack Left Animation"
     //% weight=100
     //% group="Animations"
     export function playAttackLeftAnimation() {
@@ -868,9 +868,7 @@ class Seeward {
     get sprite(): Sprite {
         return this.player;
     }
-    //% group="Animations"
-    //% blockId=playAttackLeftAnimation block="Play Attack Left Animation"
-    //% weight=8
+    
     playAttackLeftAnimation() {
         return animation.runImageAnimation(
             this.player,
