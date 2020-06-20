@@ -5,14 +5,6 @@
 //% groups='["Create Seeward", "Seeward Properties", "Seeward Animations"]'
 namespace codeplant {
 
-    export enum seewardFlags {
-        None = 0,
-        HorizontalMovement = 1 << 0,
-        VerticalMovement = 1 << 1,
-        UpdateSprite = 1 << 2,
-        CameraFollow = 1 << 3,
-        All = ~(~0 << 4)
-    }
 
     let _seeward: Seeward = null
     export let _seeward_still: Image[] = [img`
@@ -840,48 +832,13 @@ namespace codeplant {
 class Seeward {
     private player: Sprite;
     private stillAnimation: Image[];
-    private _leftAnimation: Image[];
-    private _rightAnimation: Image[];
 
-    maxMoveVelocity: number;
-
-    gravity: number;
-
-    jumpVelocity: number;
-
-    maxJump: number;
-
-    decelerationRate: number;
-
-    private controlFlags: number;
-    private initJump: boolean;
-    private releasedJump: boolean;
-    private count: number;
-    private touching: number;
-    private remainingJump: number;
-    private script: string[];
 
 
     public constructor(kind: number, x: number, y: number) {
-        this.maxMoveVelocity = 70;
-        this.gravity = 300;
-        this.jumpVelocity = 125;
 
-        this.initJump = true;
-        this.releasedJump = true;
-        this.maxJump = 2;
-        this.count = 0;
-        this.touching = 2;
-        this.remainingJump = this.maxJump;
-        this.script = [
-            "bark"
-        ];
-
-        this.controlFlags = codeplant.seewardFlags.None;
 
         this.stillAnimation = codeplant._seeward_still;
-        this._leftAnimation = codeplant._seeward_left;
-        this._rightAnimation = codeplant._seeward_right;
 
         this.player = sprites.create(this.stillAnimation[0], kind);
         this.player.setFlag(SpriteFlag.StayInScreen, true);
@@ -1751,7 +1708,7 @@ class Seeward {
                 . . . 4 4 . . . . b e e .
                 . . . b e e . . . f f f .
                 . . . f f f . . . . . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1777,7 +1734,7 @@ class Seeward {
                 . . . . b e e . . 4 4 . .
                 . . . . f f f . . b e e .
                 . . . . . . . . . f f f .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1803,7 +1760,7 @@ class Seeward {
                 . . . 4 4 . . . 4 4 . . .
                 . . . b e e . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -2089,21 +2046,4 @@ class Seeward {
 
 
 
-    private contactLeft(): boolean {
-        let screenEdge = game.currentScene().camera.offsetX;
-        return this.player.left - screenEdge <= this.touching
-            || this.player.isHittingTile(CollisionDirection.Left);
-    }
-
-    private contactRight(): boolean {
-        let screenEdge = screen.width + game.currentScene().camera.offsetX;
-        return screenEdge - this.player.right <= this.touching
-            || this.player.isHittingTile(CollisionDirection.Right);
-    }
-
-    private contactBelow(): boolean {
-        let screenEdge = screen.height + game.currentScene().camera.offsetY;
-        return screenEdge - this.player.bottom <= this.touching
-            || this.player.isHittingTile(CollisionDirection.Bottom);
-    }
 }
