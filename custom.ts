@@ -852,10 +852,10 @@ class Seeward {
         this.player.x = x;
         this.player.y = y;
         controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-            this.player.vx = -10
+            this.player.vx = -50
         })
         controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-            this.player.vx = 10
+            this.player.vx = 50
         })
         controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             
