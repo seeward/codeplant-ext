@@ -4,7 +4,7 @@
 //% weight=100 color=#d2b48c 
 //% groups='["Create", "Movement", "Speak", "Properties"]'
 namespace codeplant {
-    export enum CorgiFlags {
+    export enum seewardFlags {
         None = 0,
         HorizontalMovement = 1 << 0,
         VerticalMovement = 1 << 1,
@@ -13,7 +13,7 @@ namespace codeplant {
         All = ~(~0 << 4)
     }
 
-    export let _corgi_still: Image[] = [
+    export let _seeward_still: Image[] = [
         img`
             . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . .
@@ -124,7 +124,7 @@ namespace codeplant {
         `,
     ];
 
-    export let _corgi_left: Image[] = [
+    export let _seeward_left: Image[] = [
         img`
             . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . .
@@ -217,24 +217,24 @@ namespace codeplant {
         `
     ];
 
-    export let _corgi_right: Image[] = reflect(_corgi_left);
+    export let _seeward_right: Image[] = reflect(_seeward_left);
 
     /**
      * Creates a new dart from an image and kind
-     * @param kind the kind to make the corgi 
+     * @param kind the kind to make the seeward 
      * @param x optional initial x position, eg: 10
      * @param y optional initial y position, eg: 70
      */
-    //% blockId=corgiCreate block="corgi of kind %kind=spritekind || at x %x y %y"
+    //% blockId=seewardCreate block="seeward of kind %kind=spritekind || at x %x y %y"
     //% expandableArgumentMode=toggle
     //% inlineInputMode=inline
-    //% blockSetVariable=myCorg
+    //% blockSetVariable=seeward
     //% weight=100
     //% group="Create"
     export function create(kind: number,
         x: number = 10,
-        y: number = 70): Corgio {
-        return new Corgio(kind, x, y);
+        y: number = 70): Seeward {
+        return new Seeward(kind, x, y);
     }
 
     // Round input towards 0; 1.4 becomes 1.0, -0.4 becomes 0.0
@@ -260,28 +260,28 @@ namespace codeplant {
 }
 
 /**
- * A Corgi Platformer
+ * A seeward Platformer
  **/
 //% blockNamespace=codeplant color="#d2b48c" blockGap=8
-class Corgio {
+class Seeward {
     private player: Sprite;
     private stillAnimation: Image[];
     private _leftAnimation: Image[];
     private _rightAnimation: Image[];
 
-    //% group="Properties" blockSetVariable="myCorg"
+    //% group="Properties" blockSetVariable="seeward"
     //% blockCombine block="horizontal speed"
     maxMoveVelocity: number;
-    //% group="Properties" blockSetVariable="myCorg"
+    //% group="Properties" blockSetVariable="seeward"
     //% blockCombine block="gravity"
     gravity: number;
-    //% group="Properties" blockSetVariable="myCorg"
+    //% group="Properties" blockSetVariable="seeward"
     //% blockCombine block="jump speed"
     jumpVelocity: number;
-    //% group="Properties" blockSetVariable="myCorg"
+    //% group="Properties" blockSetVariable="seeward"
     //% blockCombine block="max jumps in a row"
     maxJump: number;
-    //% group="Properties" blockSetVariable="myCorg"
+    //% group="Properties" blockSetVariable="seeward"
     //% blockCombine block="rate horizontal movement is slowed"
     decelerationRate: number;
 
@@ -308,11 +308,11 @@ class Corgio {
             "bark"
         ];
 
-        this.controlFlags = codeplant.CorgiFlags.None;
+        this.controlFlags = codeplant.seewardFlags.None;
 
-        this.stillAnimation = codeplant._corgi_still;
-        this._leftAnimation = codeplant._corgi_left;
-        this._rightAnimation = codeplant._corgi_right;
+        this.stillAnimation = codeplant._seeward_still;
+        this._leftAnimation = codeplant._seeward_left;
+        this._rightAnimation = codeplant._seeward_right;
 
         this.player = sprites.create(this.stillAnimation[0], kind);
         this.player.setFlag(SpriteFlag.StayInScreen, true);
@@ -322,10 +322,10 @@ class Corgio {
     }
 
     /**
-     * Get the Corgio's sprite
+     * Get the Seeward's sprite
      */
     //% group="Properties"
-    //% blockId=corgSprite block="%corgio(myCorg) sprite"
+    //% blockId=corgSprite block="%Seeward(seeward) sprite"
     //% weight=8
     get sprite(): Sprite {
         return this.player;
@@ -335,15 +335,15 @@ class Corgio {
      * Make the character move in the direction indicated by the left and right arrow keys.
      */
     //% group="Movement"
-    //% blockId=horizontalMovement block="make %corgio(myCorg) move left and right with arrow keys || %on=toggleOnOff"
+    //% blockId=horizontalMovement block="make %Seeward(seeward) move left and right with arrow keys || %on=toggleOnOff"
     //% weight=100 blockGap=5
     horizontalMovement(on: boolean = true): void {
         let _this = this;
 
-        this.updateFlags(on, codeplant.CorgiFlags.HorizontalMovement);
+        this.updateFlags(on, codeplant.seewardFlags.HorizontalMovement);
 
         game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.CorgiFlags.HorizontalMovement)) return;
+            if (!(_this.controlFlags & codeplant.seewardFlags.HorizontalMovement)) return;
 
             let dir: number = controller.dx();
 
@@ -356,19 +356,19 @@ class Corgio {
      * Make the character jump when the up arrow key is pressed, and grab onto the wall when falling.
      */
     //% group="Movement"
-    //% blockId=verticalMovement block="make %corgio(myCorg) jump if up arrow key is pressed || %on=toggleOnOff"
+    //% blockId=verticalMovement block="make %Seeward(seeward) jump if up arrow key is pressed || %on=toggleOnOff"
     //% weight=100 blockGap=5
     verticalMovement(on: boolean = true): void {
         let _this = this;
 
-        this.updateFlags(on, codeplant.CorgiFlags.VerticalMovement);
+        this.updateFlags(on, codeplant.seewardFlags.VerticalMovement);
 
         controller.up.onEvent(ControllerButtonEvent.Released, function () {
             _this.releasedJump = true;
         })
 
         game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.CorgiFlags.VerticalMovement)) return;
+            if (!(_this.controlFlags & codeplant.seewardFlags.VerticalMovement)) return;
 
             if (controller.up.isPressed()) {
                 if (_this.contactLeft() && controller.right.isPressed()
@@ -396,18 +396,18 @@ class Corgio {
     }
 
     /**
-     * Set camera to follow corgio horizontally, while keeping the screen centered vertically.
+     * Set camera to follow Seeward horizontally, while keeping the screen centered vertically.
      */
     //% group="Movement"
-    //% blockId=followCorgi block="make camera follow %corgio(myCorg) left and right || %on=toggleOnOff"
+    //% blockId=followseeward block="make camera follow %Seeward(seeward) left and right || %on=toggleOnOff"
     //% weight=90 blockGap=5
     follow(on: boolean = true): void {
         let _this = this;
 
-        this.updateFlags(on, codeplant.CorgiFlags.CameraFollow);
+        this.updateFlags(on, codeplant.seewardFlags.CameraFollow);
 
         game.onUpdate(function () {
-            if (_this.controlFlags & codeplant.CorgiFlags.CameraFollow) {
+            if (_this.controlFlags & codeplant.seewardFlags.CameraFollow) {
                 scene.centerCameraAt(_this.player.x, screen.height >> 1);
             }
         })
@@ -417,15 +417,15 @@ class Corgio {
      * Make the character change sprites when moving.
      */
     //% group="Movement"
-    //% blockId=updateSprite block="change image when %corgio(myCorg) is moving || %on=toggleOnOff"
+    //% blockId=updateSprite block="change image when %Seeward(seeward) is moving || %on=toggleOnOff"
     //% weight=100 blockGap=5
     updateSprite(on: boolean = true): void {
         let _this = this;
 
-        this.updateFlags(on, codeplant.CorgiFlags.UpdateSprite);
+        this.updateFlags(on, codeplant.seewardFlags.UpdateSprite);
 
         game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.CorgiFlags.UpdateSprite)) return;
+            if (!(_this.controlFlags & codeplant.seewardFlags.UpdateSprite)) return;
 
             _this.count++;
 
@@ -444,7 +444,7 @@ class Corgio {
      * @param input phrase to add to script, eg: "bark"
      */
     //% group="Speak"
-    //% blockId=addScript block="teach %corgio(myCorg) the word %input"
+    //% blockId=addScript block="teach %Seeward(seeward) the word %input"
     //% weight=95 blockGap=5
     addToScript(input: string): void {
         this.script.push(input);
@@ -454,7 +454,7 @@ class Corgio {
      * Have the character say one of the phrases in the script at random
      */
     //% group="Speak"
-    //% blockId=bark block="make %corgio(myCorg) bark!"
+    //% blockId=bark block="make %Seeward(seeward) bark!"
     //% weight=95 blockGap=5
     bark(): void {
         this.player.say(Math.pickRandom(this.script), 250);
@@ -474,9 +474,9 @@ class Corgio {
         }
     }
 
-    private updateFlags(on: boolean, flag: codeplant.CorgiFlags): void {
+    private updateFlags(on: boolean, flag: codeplant.seewardFlags): void {
         if (on) this.controlFlags |= flag;
-        else this.controlFlags &= codeplant.CorgiFlags.All ^ flag;
+        else this.controlFlags &= codeplant.seewardFlags.All ^ flag;
     }
 
     private pickNext(input: Image[], state: number = 3): Image {
