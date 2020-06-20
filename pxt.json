@@ -5,7 +5,7 @@
         "game": "*",
         "animation": "*"
     },
-    "description": "",
+    "description": "Codeplant sprites for lessons",
     "files": [
         "README.md",
         "custom.ts"
