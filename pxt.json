@@ -3,7 +3,7 @@
     "dependencies": {
         "device": "*",
         "game": "*",
-        "animations": ""
+        "animation": "*"
     },
     "description": "",
     "files": [
