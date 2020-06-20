@@ -851,9 +851,10 @@ class Seeward {
         this.player.ay = this.gravity;
         this.player.x = x;
         this.player.y = y;
-        animation.runImageAnimation(
-            this.player,
-            [img`
+        controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+            animation.runImageAnimation(
+                this.player,
+                [img`
                 . . . . . . e f f e f e e . . . . . . . . . . . . . .
                 . . . . . e f e e f e e f e . . . . . . . . . . . . .
                 . . . . f f e f f f e f e f e . . . . . . . . . . . .
@@ -984,9 +985,11 @@ class Seeward {
                 . . . e e b . . b e e . . . . . . . . . . . . . . . .
                 . . . f f f . . f f f . . . . . . . . . . . . . . . .
             `],
-            100,
-            false
-        )
+                100,
+                false
+            )
+        })
+        
     }
 
     /**
@@ -1011,14 +1014,14 @@ class Seeward {
 
         this.updateFlags(on, codeplant.seewardFlags.HorizontalMovement);
 
-        game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.seewardFlags.HorizontalMovement)) return;
+        // game.onUpdate(function () {
+        //     if (!(_this.controlFlags & codeplant.seewardFlags.HorizontalMovement)) return;
 
-            let dir: number = controller.dx();
+        //     let dir: number = controller.dx();
 
-            _this.player.vx = dir ? codeplant.normalize(dir) * _this.maxMoveVelocity :
-                codeplant.roundTowardsZero(_this.player.vx * _this.decelerationRate);
-        })
+        //     _this.player.vx = dir ? codeplant.normalize(dir) * _this.maxMoveVelocity :
+        //         codeplant.roundTowardsZero(_this.player.vx * _this.decelerationRate);
+        // })
     }
 
     /**
@@ -1036,32 +1039,32 @@ class Seeward {
             _this.releasedJump = true;
         })
 
-        game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.seewardFlags.VerticalMovement)) return;
+        // game.onUpdate(function () {
+        //     if (!(_this.controlFlags & codeplant.seewardFlags.VerticalMovement)) return;
 
-            if (controller.up.isPressed()) {
-                if (_this.contactLeft() && controller.right.isPressed()
-                    || _this.contactRight() && controller.left.isPressed()) {
-                    _this.remainingJump = Math.max(_this.remainingJump + 1, _this.maxJump);
-                }
-                _this.jumpImpulse();
-            }
+        //     if (controller.up.isPressed()) {
+        //         if (_this.contactLeft() && controller.right.isPressed()
+        //             || _this.contactRight() && controller.left.isPressed()) {
+        //             _this.remainingJump = Math.max(_this.remainingJump + 1, _this.maxJump);
+        //         }
+        //         _this.jumpImpulse();
+        //     }
 
-            if ((_this.contactLeft() && controller.left.isPressed()
-                || _this.contactRight() && controller.right.isPressed())
-                && _this.player.vy > - 10) {
-                _this.player.ay = _this.gravity >> 2;
-            } else {
-                _this.player.ay = _this.gravity;
-            }
+        //     if ((_this.contactLeft() && controller.left.isPressed()
+        //         || _this.contactRight() && controller.right.isPressed())
+        //         && _this.player.vy > - 10) {
+        //         _this.player.ay = _this.gravity >> 2;
+        //     } else {
+        //         _this.player.ay = _this.gravity;
+        //     }
 
-            if (_this.contactBelow()) {
-                if (_this.initJump) {
-                    _this.remainingJump = _this.maxJump;
-                }
-                _this.initJump = true;
-            }
-        })
+        //     if (_this.contactBelow()) {
+        //         if (_this.initJump) {
+        //             _this.remainingJump = _this.maxJump;
+        //         }
+        //         _this.initJump = true;
+        //     }
+        // })
     }
 
     /**
@@ -1093,13 +1096,13 @@ class Seeward {
         this.animateAttack()
         this.updateFlags(on, codeplant.seewardFlags.UpdateSprite);
 
-        game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.seewardFlags.UpdateSprite)) return;
+        // game.onUpdate(function () {
+        //     if (!(_this.controlFlags & codeplant.seewardFlags.UpdateSprite)) return;
 
-            _this.count++;
+        //     _this.count++;
 
             
-        })
+        // })
     }
 
     
@@ -1242,17 +1245,17 @@ class Seeward {
         )
     }
     private jumpImpulse() {
-        if (this.remainingJump > 0 && this.releasedJump) {
-            this.releasedJump = false;
-            if (this.initJump) {
-                this.player.vy = -1 * this.jumpVelocity;
-                this.initJump = false;
-            } else {
-                this.player.vy = Math.clamp((-4 * this.jumpVelocity) / 3, -30,
-                    this.player.vy - this.jumpVelocity);
-            }
-            this.remainingJump--;
-        }
+        // if (this.remainingJump > 0 && this.releasedJump) {
+        //     this.releasedJump = false;
+        //     if (this.initJump) {
+        //         this.player.vy = -1 * this.jumpVelocity;
+        //         this.initJump = false;
+        //     } else {
+        //         this.player.vy = Math.clamp((-4 * this.jumpVelocity) / 3, -30,
+        //             this.player.vy - this.jumpVelocity);
+        //     }
+        //     this.remainingJump--;
+        // }
     }
 
     private updateFlags(on: boolean, flag: codeplant.seewardFlags): void {
