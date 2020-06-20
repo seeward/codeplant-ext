@@ -863,9 +863,9 @@ class Seeward {
 
     //% blockId=seewardAttack block="Attack"
     //% weight=8
-    public animateAttack(s: Sprite):void {
+    public animateAttack():void {
         animation.runImageAnimation(
-            s,
+            this.player,
             [img`
                 . . . . . . e f f e f e e . . . . . . . . . . . . . .
                 . . . . . e f e e f e e f e . . . . . . . . . . . . .
@@ -892,7 +892,7 @@ class Seeward {
                 . . . . 4 4 . . . 4 4 . . . . . . . . . . . . . . . .
                 . . . e e b . . . b e e . . . . . . . . . . . . . . .
                 . . . f f f . . . f f f . . . . . . . . . . . . . . .
-          `, img`
+            `, img`
                 . . . . . . e f f e f e e . . . . . . . . . . . . . .
                 . . . . . e f e e f e e f e . . . . . . . . . . . . .
                 . . . . f f e f f f e f e f e . . . . . . . . . . . .
@@ -918,7 +918,7 @@ class Seeward {
                 . . . . 4 4 . . . 4 4 . . . . . . . . . . . . . . . .
                 . . . e e b . . . b e e . . . . . . . . . . . . . . .
                 . . . f f f . . . f f f . . . . . . . . . . . . . . .
-          `, img`
+            `, img`
                 . . . . . . . . . . . . . . . . . . . . . . . . . . .
                 . . . . e f f e f e e . . . . . . . . . . . . . . . .
                 . . . e f e e f e e f e . . . . . . . . . . . . . . .
@@ -944,7 +944,7 @@ class Seeward {
                 . . . . 4 4 1 1 1 1 1 1 . . . . . . . . . . . . . . .
                 . . . e e b . . 1 1 1 . . . . . . . . . . . . . . . .
                 . . . f f f . . f f f . . . . . . . . . . . . . . . .
-          `, img`
+            `, img`
                 . . . . e f f e f e e . . . . . . . . . . . . . . . .
                 . . . e f e e f e e f e . . . . . . . . . . . . . . .
                 . . f f e f f f e f e f . . . . . . . . . . . . . . .
@@ -970,7 +970,7 @@ class Seeward {
                 . . . . 4 4 . . 1 1 1 . . . . . . . . . . . . . . . .
                 . . . e e b . . b e e . . . . . . . . . . . . . . . .
                 . . . f f f . . f f f . . . . . . . . . . . . . . . .
-          `, img`
+            `, img`
                 . . . . e f f e f e e . . . . . . . . . . . . . . . .
                 . . . e f e e f e e f e . . . . . . . . . . . . . . .
                 . . f f e f f f e f e f e . . . . . . . . . . . . . .
