@@ -849,7 +849,8 @@ class Seeward {
 
     public constructor(kind: number, x: number, y: number) {
        // create a sprite with the first image 
-        this.player = sprites.create(codeplant._seeward_still[0], kind);
+        this.stillAnimation = codeplant._seeward_still
+        this.player = sprites.create(this.stillAnimation[0], kind);
         this.player.x = x;
         this.player.y = y;
 
@@ -868,7 +869,7 @@ class Seeward {
     }
     
     playAttackLeftAnimation() {
-        return animation.runImageAnimation(
+        animation.runImageAnimation(
             this.player,
             [img`
                 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
