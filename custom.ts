@@ -1,9 +1,9 @@
 /**
-* Sprite Wrapper for a Codeplant lessons
+* Sprite Wrapper for a codeplant.seeward lessons
 */
 //% weight=100 color=#d2b48c 
 //% groups='["Create Seeward", "Seeward Properties", "Seeward Animations"]'
-namespace codeplant {
+namespace codeplant.seeward {
 
 
     let _seeward: Seeward = null
@@ -828,7 +828,7 @@ namespace codeplant {
 /**
  * A seeward Platformer
  **/
-//% blockNamespace=codeplant color="#d2b48c" blockGap=8
+//% blockNamespace=codeplant.seeward color="#d2b48c" blockGap=8
 class Seeward {
     private player: Sprite;
     private stillAnimation: Image[];
@@ -838,7 +838,7 @@ class Seeward {
     public constructor(kind: number, x: number, y: number) {
 
 
-        this.stillAnimation = codeplant._seeward_still;
+        this.stillAnimation = codeplant.seeward._seeward_still;
 
         this.player = sprites.create(this.stillAnimation[0], kind);
         this.player.setFlag(SpriteFlag.StayInScreen, true);
