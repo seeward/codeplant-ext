@@ -4,7 +4,7 @@
 //% weight=100 color=#d2b48c 
 //% groups='["Create Seeward", "Seeward Properties", "Seeward Animations"]'
 namespace codeplant {
-    
+
     export enum seewardFlags {
         None = 0,
         HorizontalMovement = 1 << 0,
@@ -767,18 +767,6 @@ namespace codeplant {
         return _seeward
 
     }
-    //% blockId=SeewardIdle block="Seeward Idle Front Animation"
-    //% weight=100
-    //% group="Seeward Animations"
-    export function playIdleFrontAnimation() {
-        _seeward.playIdleRightAnimation()
-    }
-    //% blockId=SeewardIdleBack block="Seeward Idle Back Animation"
-    //% weight=100
-    //% group="Seeward Animations"
-    export function playIdleBackAnimation() {
-        _seeward.playIdleBackAnimation()
-    }
     //% blockId=SeewardAttackLeft block="Seeward Attack Left Animation"
     //% weight=100
     //% group="Seeward Animations"
@@ -803,16 +791,16 @@ namespace codeplant {
     export function playWalkRightAnimation() {
         _seeward.playWalkRightAnimation()
     }
-    //% blockId=SeewardWalkDown block="Seeward Walk Down Animation"
+    //% blockId=SeewardIdlet block="Seeward Idle Front Animation"
     //% weight=100
     //% group="Seeward Animations"
-    export function playWalkDownAnimation() {
-        _seeward.playUpDownAnimation()
+    export function playIdleFrontAnimation() {
+        _seeward.playIdleRightAnimation()
     }
 
-    
 
-    
+
+
 
 
     // Round input towards 0; 1.4 becomes 1.0, -0.4 becomes 0.0
@@ -844,13 +832,52 @@ namespace codeplant {
 class Seeward {
     private player: Sprite;
     private stillAnimation: Image[];
+    private _leftAnimation: Image[];
+    private _rightAnimation: Image[];
 
+    maxMoveVelocity: number;
+
+    gravity: number;
+
+    jumpVelocity: number;
+
+    maxJump: number;
+
+    decelerationRate: number;
+
+    private controlFlags: number;
+    private initJump: boolean;
+    private releasedJump: boolean;
+    private count: number;
+    private touching: number;
+    private remainingJump: number;
+    private script: string[];
 
 
     public constructor(kind: number, x: number, y: number) {
-       // create a sprite with the first image 
-        this.stillAnimation = codeplant._seeward_still
+        this.maxMoveVelocity = 70;
+        this.gravity = 300;
+        this.jumpVelocity = 125;
+
+        this.initJump = true;
+        this.releasedJump = true;
+        this.maxJump = 2;
+        this.count = 0;
+        this.touching = 2;
+        this.remainingJump = this.maxJump;
+        this.script = [
+            "bark"
+        ];
+
+        this.controlFlags = codeplant.seewardFlags.None;
+
+        this.stillAnimation = codeplant._seeward_still;
+        this._leftAnimation = codeplant._seeward_left;
+        this._rightAnimation = codeplant._seeward_right;
+
         this.player = sprites.create(this.stillAnimation[0], kind);
+        this.player.setFlag(SpriteFlag.StayInScreen, true);
+        this.player.ay = this.gravity;
         this.player.x = x;
         this.player.y = y;
 
@@ -867,9 +894,9 @@ class Seeward {
     get sprite(): Sprite {
         return this.player;
     }
-    
+
     playAttackLeftAnimation() {
-        animation.runImageAnimation(
+        return animation.runImageAnimation(
             this.player,
             [img`
                 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -897,7 +924,7 @@ class Seeward {
                 . . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . .
                 . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
                 . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
                 . . . . . . . . . . . . . . . 1 . . . . . f f e f e e . . .
                 . . . . . . . . . . . . . . 1 b b . . . f e e f e e f e e .
@@ -923,7 +950,7 @@ class Seeward {
                 . . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . .
                 . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
                 . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . 1 1 1 1 . . . . . . . . . . . . . .
                 . . . . . . . . . . . 1 1 1 . . . . . . . . . . . . . . . .
                 . . . . . . . . . 1 1 1 1 1 . . f f e f e e . . . . . . . .
@@ -949,7 +976,7 @@ class Seeward {
                 . 2 d b b . . . . . . . . . . . c c c . c c c . . . . . . .
                 4 d b b . . 4 . . . . . . . . e e b . . e e b . . . . . . .
                 2 4 b . 2 . . . . . . . . . . f f f . . f f f . . . . . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
                 . . . . . . . . . . . . . . . . . f f e f e e . . . . . . .
                 . . . . . . . . . . . . . . . . e e e f e e f e e . . . . .
@@ -975,7 +1002,7 @@ class Seeward {
                 . 2 d b b . . . . . . . 4 . . . . 4 4 . . . 4 4 . . . . . .
                 . d b b . . 4 . . . . . . . . . e e b . . e e b . . . . . .
                 4 d b . 4 . . . . . . . . . . . f f f . . f f f . . . . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . . . . . . f f e f e e . . . . . . .
                 . . . . . . . . . . . . . . . . f e e f e e f e e . 1 1 . .
                 . . . . . . . . . . . . . . . f e f f f e f e f e e . . . .
@@ -1001,7 +1028,7 @@ class Seeward {
                 . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . . .
                 . . . . . . . . . . . . . . . . e e b . . e e b . . . . . .
                 . . . . . . . . . . . . . . . . f f f . . f f f . . . . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . . . . . . . . f f e f e e . . . . .
                 . . . . . . . . . . . . . . . . . . f e e f e e f e e . . .
                 . . . . . . . . . . . . . . . . . f e f f f e f e f e e . .
@@ -1203,7 +1230,7 @@ class Seeward {
                 . . . 4 4 . . . 4 4 . . .
                 . . . e e . . . e e . . .
                 . . . f f . . . f f . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1229,7 +1256,7 @@ class Seeward {
                 . . . e e . . . 4 4 . . .
                 . . . f f . . . e e . . .
                 . . . . . . . . f f . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1255,7 +1282,7 @@ class Seeward {
                 . . . 4 4 . . . e e . . .
                 . . . e e . . . f f . . .
                 . . . f f . . . . . . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1281,7 +1308,7 @@ class Seeward {
                 . . . e e . . . 4 4 . . .
                 . . . f f . . . e e . . .
                 . . . . . . . . f f . . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1343,7 +1370,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1369,7 +1396,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1395,7 +1422,7 @@ class Seeward {
                 . . . . 4 4 . . b e e . .
                 . . . e e b . . f f f . .
                 . . . f f f . . . . . . .
-            `,img`
+            `, img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
                 . f f e f f f e f e f e .
@@ -1421,7 +1448,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
                 . f f e f f f e f e f e .
@@ -1447,7 +1474,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
                 . f f e f f f e f e f e .
@@ -1473,7 +1500,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1499,7 +1526,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1525,7 +1552,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1551,7 +1578,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1577,7 +1604,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1603,7 +1630,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1629,7 +1656,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1655,7 +1682,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+            `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1716,7 +1743,7 @@ class Seeward {
                 . . . 4 4 . . . . b e e .
                 . . . b e e . . . f f f .
                 . . . f f f . . . . . . .
-            `,img`
+     `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1742,7 +1769,7 @@ class Seeward {
                 . . . . b e e . . 4 4 . .
                 . . . . f f f . . b e e .
                 . . . . . . . . . f f f .
-            `,img`
+     `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1768,7 +1795,7 @@ class Seeward {
                 . . . 4 4 . . . 4 4 . . .
                 . . . b e e . . b e e . .
                 . . . f f f . . f f f . .
-            `,img`
+     `, img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
