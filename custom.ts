@@ -803,6 +803,12 @@ namespace codeplant {
     export function playWalkRightAnimation() {
         _seeward.playWalkRightAnimation()
     }
+    //% blockId=SeewardWalkDown block="Seeward Walk Down Animation"
+    //% weight=100
+    //% group="Seeward Animations"
+    export function playWalkDownAnimation() {
+        _seeward.playUpDownAnimation()
+    }
 
     
 
@@ -838,33 +844,12 @@ namespace codeplant {
 class Seeward {
     private player: Sprite;
     private stillAnimation: Image[];
-    private _leftAnimation: Image[];
-    private _rightAnimation: Image[];
 
-    maxMoveVelocity: number;
-   
-    gravity: number;
-    
-    jumpVelocity: number;
-  
-    maxJump: number;
-   
-    decelerationRate: number;
-
-    private controlFlags: number;
-    private initJump: boolean;
-    private releasedJump: boolean;
-    private count: number;
-    private touching: number;
-    private remainingJump: number;
-    private script: string[];
 
 
     public constructor(kind: number, x: number, y: number) {
-       
-
-        this.stillAnimation = codeplant._seeward_still;
-        this.player = sprites.create(this.stillAnimation[0], kind);
+       // create a sprite with the first image 
+        this.player = sprites.create(codeplant._seeward_still[0], kind);
         this.player.x = x;
         this.player.y = y;
 
@@ -1730,7 +1715,7 @@ class Seeward {
                 . . . 4 4 . . . . b e e .
                 . . . b e e . . . f f f .
                 . . . f f f . . . . . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1756,7 +1741,7 @@ class Seeward {
                 . . . . b e e . . 4 4 . .
                 . . . . f f f . . b e e .
                 . . . . . . . . . f f f .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1782,7 +1767,7 @@ class Seeward {
                 . . . 4 4 . . . 4 4 . . .
                 . . . b e e . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
