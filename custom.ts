@@ -851,6 +851,12 @@ class Seeward {
         this.player.ay = this.gravity;
         this.player.x = x;
         this.player.y = y;
+        controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+            this.player.vx = -10
+        })
+        controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+            this.player.vx = 10
+        })
         controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             
             animation.runImageAnimation(
@@ -989,7 +995,7 @@ class Seeward {
                 100,
                 false
             )
-            this.player.vx = -100
+            
         })
         
     }
