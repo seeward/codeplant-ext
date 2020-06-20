@@ -851,152 +851,8 @@ class Seeward {
         this.player.ay = this.gravity;
         this.player.x = x;
         this.player.y = y;
-        controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-            this.player.vx = -50
-        })
-        controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-            this.player.vx = 50
-        })
-        controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-            this.animateAttack()
-            // animation.runImageAnimation(
-            //     this.player,
-            //     [img`
-            //         . . . . . . e f f e f e e . . . . . . . . . . . . . .
-            //         . . . . . e f e e f e e f e . . . . . . . . . . . . .
-            //         . . . . f f e f f f e f e f e . . . . . . . . . . . .
-            //         . . . e f e e f e e f e e f e . . . . . . . . . . . .
-            //         . . . f e e f f e e e 4 e e f e . . . . . . . . . . .
-            //         . . . . f e e e 4 4 4 4 4 e e e . . . . . . . . . . .
-            //         . 1 . . e e 4 4 4 4 4 4 4 4 e . . . . . . . . . . . .
-            //         . 1 1 . . f f f f f 4 4 f f f f . . . . . . . . . . .
-            //         . 1 1 . . 4 4 f 4 e f f e 4 f . . . . . . . . . . . .
-            //         . 1 1 . . 4 4 f f f 4 4 f f f . . . . . . . . . . . .
-            //         . 1 1 1 . 4 4 4 4 4 4 e 4 4 . . . . . . . . . . . . .
-            //         . . 1 1 . 4 4 4 4 4 4 e 4 4 . . . . . . . . . . . . .
-            //         . . 1 1 . . 4 4 4 4 e 4 4 4 . . . . . . . . . . . . .
-            //         . . 1 1 e e e 4 4 4 4 4 4 . . . . . . . . . . . . . .
-            //         . . . 1 1 e e e 4 4 4 4 . . . . . . . . . . . . . . .
-            //         . . . 1 1 1 e e e e e e e b b b 1 b b b b b b b . . .
-            //         . . . . e 1 1 1 1 1 1 1 1 1 1 b b 1 b b b b b b 1 . .
-            //         . . . . e e e e 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . . .
-            //         . . . . e e e e e e e . . . . . . . . . . . . . . . .
-            //         . . . . c c e e e e e . . . . . . . . . . . . . . . .
-            //         . . . . c c c c c c c . . . . . . . . . . . . . . . .
-            //         . . . . c c c . c c c . . . . . . . . . . . . . . . .
-            //         . . . . 4 4 . . . 4 4 . . . . . . . . . . . . . . . .
-            //         . . . e e b . . . b e e . . . . . . . . . . . . . . .
-            //         . . . f f f . . . f f f . . . . . . . . . . . . . . .
-            //     `,img`
-            //         . . . . . . e f f e f e e . . . . . . . . . . . . . .
-            //         . . . . . e f e e f e e f e . . . . . . . . . . . . .
-            //         . . . . f f e f f f e f e f e . . . . . . . . . . . .
-            //         . . . e f e e f e e f e e f e . . . . . . . . . . . .
-            //         . . . f e e f f e e e 4 e e f e . . . . . . . . . . .
-            //         . . . . f e e e 4 4 4 4 4 e e e . . . . . . . . . . .
-            //         . . . . e e 4 4 4 4 4 4 4 4 e . . . . . . . . . . . .
-            //         . . . . . f f f f f 4 4 f f f f . . . . . . . . . . .
-            //         . . . . . 4 4 f 4 e f f e 4 f . . . . . . . . . . . .
-            //         . . . . . 4 4 f f f 4 4 f f f . . . . . . . . . . . .
-            //         . . . . . 4 4 4 4 4 4 e 4 4 . . . . . . . . . . . . .
-            //         . . . . . 4 4 4 4 4 4 e 4 4 . . . . . . . . . . . . .
-            //         . . . . . . 4 4 4 4 e 4 4 4 . . . . . . . . . . . . .
-            //         . . . . . e e 4 4 4 4 4 4 . . . . . . . . . . . . . .
-            //         . . . . e e e e 4 4 4 4 . . . . . . . . . . . . . . .
-            //         . . . . e e e e e e e e e b b b b b b b b b b 5 . 5 .
-            //         . . . . e e e e e e e e e b b b b b b b b b 1 1 5 . .
-            //         . . . . e e e e e e e . . 1 1 1 1 1 1 1 1 1 1 5 . 5 .
-            //         . . . . e e e e e e e . . . . . . . . . . . . . . . .
-            //         . . . . c c c c c c c . . . . . . . . . . . . . . . .
-            //         . . . . c c c c c c c . . . . . . . . . . . . . . . .
-            //         . . . . c c c . c c c . . . . . . . . . . . . . . . .
-            //         . . . . 4 4 . . . 4 4 . . . . . . . . . . . . . . . .
-            //         . . . e e b . . . b e e . . . . . . . . . . . . . . .
-            //         . . . f f f . . . f f f . . . . . . . . . . . . . . .
-            //     `,img`
-            //         . . . . . . . . . . . . . . . . . . . . . . . . . . .
-            //         . . . . e f f e f e e . . . . . . . . . . . . . . . .
-            //         . . . e f e e f e e f e . . . . . . . . . . . . . . .
-            //         . . f f e f f f e f e f e . . . . . . . . . . . . . .
-            //         . e f e e f e e f e e f e e . . . . . . . . . . . . .
-            //         . f e e f f e e e 4 e e f e . . . . . . . . . . . . .
-            //         . . f f e e 4 4 4 4 4 e e . . . . . . . . . . . . . .
-            //         . . e e 4 4 4 4 4 4 4 4 e . . . . . . . . . . . . . .
-            //         . 1 f f f f f f 4 4 f f f f . . . . . . . . . . . . .
-            //         . . 4 f 4 f 4 e f f e 4 f . . . . . . . . . . . . . .
-            //         . . . e 4 f f f 4 4 f f f . . . . . . . . . . . . . .
-            //         . . . 4 4 4 4 4 4 e 4 4 . . . . . . . . . . . . . . .
-            //         . . . . 4 4 4 4 4 e 4 4 . . . . . . . . . . . . . . .
-            //         . . . . 4 4 4 4 e 4 4 4 . . . . . . . 1 1 1 . . . . .
-            //         . . . . . 4 4 4 4 4 4 . . . . . . . . 1 1 . . . . . .
-            //         1 1 . e e e e 4 4 4 . . . . . . . . 1 1 . . . . . . .
-            //         . 1 1 e e e e e e e . . . . . . 1 1 1 . . . . . . . .
-            //         . 1 1 1 1 e e e e e . . . . . . 1 1 . . . . . . . . .
-            //         . 1 1 1 1 1 e e e e . . . . 1 1 1 . . . . . . . . . .
-            //         . . 1 1 1 1 1 1 1 1 . . 1 1 1 1 . . . . . . . . . . .
-            //         . . . c 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . .
-            //         . . . c c 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . .
-            //         . . . . 4 4 1 1 1 1 1 1 . . . . . . . . . . . . . . .
-            //         . . . e e b . . 1 1 1 . . . . . . . . . . . . . . . .
-            //         . . . f f f . . f f f . . . . . . . . . . . . . . . .
-            //     `,img`
-            //         . . . . e f f e f e e . . . . . . . . . . . . . . . .
-            //         . . . e f e e f e e f e . . . . . . . . . . . . . . .
-            //         . . f f e f f f e f e f . . . . . . . . . . . . . . .
-            //         . e f e e f e e f e e f . . . . . . . . . . . . . . .
-            //         . f e e f f e e e 4 e e e . . . . . . . . . . . . . .
-            //         . . f f e e 4 4 4 4 4 e e . . . . . . . . . . . . . .
-            //         . . e e 4 4 4 4 4 4 4 4 . . . . . . . . . . . . . . .
-            //         . 1 f f f f f f 4 4 f f f . . . . . . . . . . . . . .
-            //         . . 4 f 4 f 4 e f f e 4 f . . . . . . . . . . . . . .
-            //         . . . e 4 f f f 4 4 f f f . . . . . . . . . . . . . .
-            //         . . . 4 4 4 4 4 4 e 4 4 . . . . . . . . . . . . . . .
-            //         . . . . 4 4 4 4 4 e 4 4 . . . . . . . . . . . . . . .
-            //         . 1 . . 4 4 4 4 e 4 4 4 . . . . . . . . . . . . . . .
-            //         1 1 1 . . 4 4 4 4 4 4 4 . . . . . . . . . . . . . . .
-            //         1 1 1 1 . 4 4 4 4 4 e e . . . . . . . . . . . . . . .
-            //         1 1 1 1 e e e e e e e . . . . . . . . . . . . . . . .
-            //         1 1 1 1 e e e e e e e . . . . . . . . . . . . . . . .
-            //         . 1 1 1 e e e e e e e . . . . . . . . . . . . . . . .
-            //         . . 1 1 1 e e e e e e . . . . . . . . . . . . . . . .
-            //         . . . 1 1 1 e e e e . . . . . . . . . . . . . . . . .
-            //         . . . c 1 1 1 c c c . 1 . . . . . . . . . . . . . . .
-            //         . . . c c c 1 1 1 1 1 1 . . . . . . . . . . . . . . .
-            //         . . . . 4 4 . . 1 1 1 . . . . . . . . . . . . . . . .
-            //         . . . e e b . . b e e . . . . . . . . . . . . . . . .
-            //         . . . f f f . . f f f . . . . . . . . . . . . . . . .
-            //     `,img`
-            //         . . . . e f f e f e e . . . . . . . . . . . . . . . .
-            //         . . . e f e e f e e f e . . . . . . . . . . . . . . .
-            //         . . f f e f f f e f e f e . . . . . . . . . . . . . .
-            //         . e f e e f e e f e e f e . . . . . . . . . . . . . .
-            //         . f e e f f e e e 4 e e f e . . . . . . . . . . . . .
-            //         . . f 1 e e 4 4 4 4 4 e e e . . . . . . . . . . . . .
-            //         . . b b 1 4 4 4 4 4 4 4 e . . . . . . . . . . . . . .
-            //         . . b b 1 f f f 4 4 f f f f . . . . . . . . . . . . .
-            //         . . b b 1 f 4 e f f e 4 f . . . . . . . . . . . . . .
-            //         . . b b 1 f f f 4 4 f f f . . . . . . . . . . . . . .
-            //         . . b d 1 4 4 4 4 e 4 4 . . . . . . . . . . . . . . .
-            //         . . b d 1 4 4 4 4 e 4 4 . . . . . . . . . . . . . . .
-            //         . . d b 1 4 4 4 e 4 4 4 . . . . . . . . . . . . . . .
-            //         . . d b 1 4 4 4 4 4 4 . . . . . . . . . . . . . . . .
-            //         . e b b 1 4 4 4 4 4 e . . . . . . . . . . . . . . . .
-            //         . e b b 1 e e e e e e . . . . . . . . . . . . . . . .
-            //         . e b b 1 e e e e e e . . . . . . . . . . . . . . . .
-            //         . . e e e e e e e e e . . . . . . . . . . . . . . . .
-            //         . . e 4 4 4 4 4 4 e . . . . . . . . . . . . . . . . .
-            //         . . e e c c c c c c . . . . . . . . . . . . . . . . .
-            //         . . e e c c c c c c . . . . . . . . . . . . . . . . .
-            //         . . . c c c . c c c . . . . . . . . . . . . . . . . .
-            //         . . . . 4 4 . . 4 4 . . . . . . . . . . . . . . . . .
-            //         . . . e e b . . b e e . . . . . . . . . . . . . . . .
-            //         . . . f f f . . f f f . . . . . . . . . . . . . . . .
-            //     `],
-            //     100,
-            //     false
-            // )
-
-        })
+        
+        this.playIdleRightAnimation();
 
     }
 
@@ -1109,7 +965,7 @@ class Seeward {
             . . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . .
             . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
             . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
-       `, img`
+        `,img`
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . 1 . . . . . f f e f e e . . .
             . . . . . . . . . . . . . . 1 b b . . . f e e f e e f e e .
@@ -1135,7 +991,7 @@ class Seeward {
             . . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . .
             . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
             . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
-       `, img`
+        `,img`
             . . . . . . . . . . . . 1 1 1 1 . . . . . . . . . . . . . .
             . . . . . . . . . . . 1 1 1 . . . . . . . . . . . . . . . .
             . . . . . . . . . 1 1 1 1 1 . . f f e f e e . . . . . . . .
@@ -1161,7 +1017,7 @@ class Seeward {
             . 2 d b b . . . . . . . . . . . c c c . c c c . . . . . . .
             4 d b b . . 4 . . . . . . . . e e b . . e e b . . . . . . .
             2 4 b . 2 . . . . . . . . . . f f f . . f f f . . . . . . .
-       `, img`
+        `,img`
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . . . f f e f e e . . . . . . .
             . . . . . . . . . . . . . . . . e e e f e e f e e . . . . .
@@ -1187,7 +1043,7 @@ class Seeward {
             . 2 d b b . . . . . . . 4 . . . . 4 4 . . . 4 4 . . . . . .
             . d b b . . 4 . . . . . . . . . e e b . . e e b . . . . . .
             4 d b . 4 . . . . . . . . . . . f f f . . f f f . . . . . .
-       `, img`
+        `,img`
             . . . . . . . . . . . . . . . . . f f e f e e . . . . . . .
             . . . . . . . . . . . . . . . . f e e f e e f e e . 1 1 . .
             . . . . . . . . . . . . . . . f e f f f e f e f e e . . . .
@@ -1213,7 +1069,7 @@ class Seeward {
             . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . . .
             . . . . . . . . . . . . . . . . e e b . . e e b . . . . . .
             . . . . . . . . . . . . . . . . f f f . . f f f . . . . . .
-       `, img`
+        `,img`
             . . . . . . . . . . . . . . . . . . . f f e f e e . . . . .
             . . . . . . . . . . . . . . . . . . f e e f e e f e e . . .
             . . . . . . . . . . . . . . . . . f e f f f e f e f e e . .
@@ -1384,6 +1240,517 @@ class Seeward {
         )
     }
 
+    
+playUpDownAnimation() {
+    animation.runImageAnimation(
+        this.sprite(),
+        [img`
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . . . . 4 4 4 4 4 4 . . .
+            . e e e e e 4 4 4 e e e .
+            . e . e e e e e e e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . 4 4 . . . 4 4 . . .
+            . . . e e . . . e e . . .
+            . . . f f . . . f f . . .
+       `, img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . e e . . . 4 4 . . .
+            . . . f f . . . e e . . .
+            . . . . . . . . f f . . .
+       `, img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . 4 4 . . . e e . . .
+            . . . e e . . . f f . . .
+            . . . f f . . . . . . . .
+       `, img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . e e . . . 4 4 . . .
+            . . . f f . . . e e . . .
+            . . . . . . . . f f . . .
+       `, img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . 4 4 . . . e e . . .
+            . . . e e . . . f f . . .
+            . . . f f . . . . . . . .
+        `],
+        100,
+        true
+    )
+}
+playIdleRightAnimation() {
+    animation.runImageAnimation(
+        this.sprite(),
+        [img`
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . . . . 4 4 4 4 4 4 . . .
+            . e e e e e 4 4 4 e e e .
+            . e . e e e e e e e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . 4 .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . 4 .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . 4 .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . b e e . .
+            . . . e e b . . f f f . .
+            . . . f f f . . . . . . .
+        `,img`
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . . . . 4 4 4 4 4 4 . . .
+            . e e e e e 4 4 4 e e e .
+            . e . e e e e e e e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . 4 .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . . . . 4 4 4 4 4 4 . . .
+            . e e e e e 4 4 4 e e e .
+            . e . e e e e e e e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . 4 .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . . . . 4 4 4 4 4 4 . . .
+            . e e e e e 4 4 4 e e e .
+            . e . e e e e e e e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . 4 .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . . . c c c c c c c . 4 .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `,img`
+            . . . . . . . . . . . . .
+            . . . e f f e f e e . . .
+            . . e f e e f e e f e . .
+            . f f e f f f e f e f e .
+            e f e e f e e f e e f e .
+            f e e f f e e e 4 e e f e
+            . f f e e 4 4 4 4 4 e e e
+            . e e 4 4 4 4 4 4 4 4 e .
+            . f f f f f f 4 4 f f f f
+            . 4 f 4 f 4 e f f e 4 f .
+            . . e 4 f f f 4 4 f f f .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . 4 4 4 4 4 e 4 4 . .
+            . . . . 4 4 4 e 4 4 4 . .
+            . e e e 4 4 4 4 4 4 e e .
+            . e . e e e 4 4 4 e . e .
+            . e . e e e e e e e . e .
+            . 4 . e e e e e e e . 4 .
+            . 4 . e e e e e e e . 4 .
+            . 4 . c c c c c c c . 4 .
+            . 4 . c c c c c c c . . .
+            . . . c c c . c c c . . .
+            . . . . 4 4 . . 4 4 . . .
+            . . . e e b . . b e e . .
+            . . . f f f . . f f f . .
+        `],
+        100,
+        true
+    )
+}
 
     playIdleBackAnimation(): void {
         animation.runImageAnimation(
