@@ -2,7 +2,8 @@
     "name": "codeplant-ext",
     "dependencies": {
         "device": "*",
-        "game": "*"
+        "game": "*",
+        "animations": ""
     },
     "description": "",
     "files": [
