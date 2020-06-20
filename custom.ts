@@ -773,6 +773,26 @@ namespace codeplant {
     export function playAttackLeftAnimation() {
         _seeward.playAttackLeftAnimation()
     }
+    //% blockId=SeewardAttackRight block="Seeward Attack Right Animation"
+    //% weight=100
+    //% group="Seeward Animations"
+    export function playAttackRightAnimation() {
+        _seeward.animateAttack()
+    }
+    //% blockId=SeewardWalkLeft block="Seeward Walk Left Animation"
+    //% weight=100
+    //% group="Seeward Animations"
+    export function playWalkLeftAnimation() {
+        _seeward.playWalkLeftAnimation()
+    }
+    //% blockId=SeewardWalkRight block="Seeward Walk Right Animation"
+    //% weight=100
+    //% group="Seeward Animations"
+    export function playWalkRightAnimation() {
+        _seeward.playWalkRightAnimation()
+    }
+
+    
 
     
 
@@ -1688,7 +1708,118 @@ class Seeward {
         )
     }
 
-
+ playWalkRightAnimation() {
+    animation.runImageAnimation(
+        this.player,
+        [img`
+        . . . e f f e f e e . . .
+        . . e f e e f e e f e . .
+        . f f e f f f e f e f e .
+        e f e e f e e f e e f e .
+        f e e f f e e e 4 e e f e
+        . f f e e 4 4 4 4 4 e e e
+        . e e 4 4 4 4 4 4 4 4 e .
+        . f f f f f f 4 4 f f f f
+        . 4 f 4 f 4 e f f e 4 f .
+        . . e 4 f f f 4 4 f f f .
+        . . . 4 4 4 4 4 e 4 4 . .
+        . . . 4 4 4 4 4 e 4 4 . .
+        . . . . 4 4 4 e 4 4 4 . .
+        . . . . 4 4 4 4 4 4 . . .
+        . e e e e e 4 4 4 e e e .
+        . e . e e e e e e e . e .
+        . e . e e e e e e e . e .
+        . 4 . e e e e e e e . 4 .
+        . 4 . e e e e e e e . 4 .
+        . 4 . c c c c c c c . 4 4
+        . 4 . c c c c c c c . . .
+        . 4 4 c c c . c c 4 4 . .
+        . . . 4 4 . . . . b e e .
+        . . . b e e . . . f f f .
+        . . . f f f . . . . . . .
+  `, img`
+        . . . . . . . . . . . . .
+        . . . e f f e f e e . . .
+        . . e f e e f e e f e . .
+        . f f e f f f e f e f e .
+        e f e e f e e f e e f e .
+        f e e f f e e e 4 e e f e
+        . f f e e 4 4 4 4 4 e e e
+        . e e 4 4 4 4 4 4 4 4 e .
+        . f f f f f f 4 4 f f f f
+        . 4 f 4 f 4 e f f e 4 f .
+        . . e 4 f f f 4 4 f f f .
+        . . . 4 4 4 4 4 e 4 4 . .
+        . . . 4 4 4 4 4 e 4 4 . .
+        . . . . 4 4 4 e 4 4 4 . .
+        . e e e 4 4 4 4 4 4 e e .
+        . e . e e e 4 4 4 e . e .
+        . e . e e e e e e e . e .
+        . 4 . e e e e e e e . 4 .
+        . 4 . e e e e e e e . 4 .
+        . 4 . c c c c c c c . 4 .
+        . 4 4 c c c c c c c . 4 4
+        . . . c c c . c c c . . .
+        . . . . b e e . . 4 4 . .
+        . . . . f f f . . b e e .
+        . . . . . . . . . f f f .
+  `, img`
+        . . . . . . . . . . . . .
+        . . . e f f e f e e . . .
+        . . e f e e f e e f e . .
+        . f f e f f f e f e f e .
+        e f e e f e e f e e f e .
+        f e e f f e e e 4 e e f e
+        . f f e e 4 4 4 4 4 e e e
+        . e e 4 4 4 4 4 4 4 4 e .
+        . f f f f f f 4 4 f f f f
+        . 4 f 4 f 4 e f f e 4 f .
+        . . e 4 f f f 4 4 f f f .
+        . . . 4 4 4 4 4 e 4 4 . .
+        . . . 4 4 4 4 4 e 4 4 . .
+        . . . . 4 4 4 e 4 4 4 . .
+        . e e e 4 4 4 4 4 4 e e .
+        . e . e e e 4 4 4 e . e .
+        . e . e e e e e e e . e .
+        . 4 . e e e e e e e . 4 .
+        . 4 . e e e e e e e . 4 .
+        . 4 4 c c c c c c c . 4 .
+        . . . c c c c c c c . 4 .
+        . . . c c c . c c c . 4 4
+        . . . 4 4 . . . 4 4 . . .
+        . . . b e e . . b e e . .
+        . . . f f f . . f f f . .
+  `, img`
+        . . . . . . . . . . . . .
+        . . . e f f e f e e . . .
+        . . e f e e f e e f e . .
+        . f f e f f f e f e f e .
+        e f e e f e e f e e f e .
+        f e e f f e e e 4 e e f e
+        . f f e e 4 4 4 4 4 e e e
+        . e e 4 4 4 4 4 4 4 4 e .
+        . f f f f f f 4 4 f f f f
+        . 4 f 4 f 4 e f f e 4 f .
+        . . e 4 f f f 4 4 f f f .
+        . . . 4 4 4 4 4 e 4 4 . .
+        . . . 4 4 4 4 4 e 4 4 . .
+        . . . . 4 4 4 e 4 4 4 . .
+        . e e e 4 4 4 4 4 4 e e .
+        . e . e e e 4 4 4 e . e .
+        . e . e e e e e e e . e .
+        . 4 . e e e e e e e . 4 .
+        . 4 . e e e e e e e . 4 .
+        . 4 . c c c c c c c . 4 4
+        . 4 4 c c c c c c c . . .
+        . . . c c c . c c c . . .
+        . . . . 4 4 . . 4 4 . . .
+        . . . . b e e . b e e . .
+        . . . . f f f . f f f . .
+    `],
+        75,
+        true
+    )
+}
     playIdleBackAnimation(): void {
         animation.runImageAnimation(
             this.player,
