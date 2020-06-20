@@ -262,7 +262,7 @@ namespace codeplant {
 /**
  * A Corgi Platformer
  **/
-//% blockNamespace=corgio color="#d2b48c" blockGap=8
+//% blockNamespace=codeplant color="#d2b48c" blockGap=8
 class Corgio {
     private player: Sprite;
     private stillAnimation: Image[];
