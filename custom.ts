@@ -753,7 +753,7 @@ namespace codeplant {
      * @param x optional initial x position, eg: 10
      * @param y optional initial y position, eg: 70
      */
-    //% blockId=seewardCreate block="seeward of kind %kind=spritekind || at x %x y %y"
+    //% blockId=seewardCreate block="sprite of kind %kind=spritekind || at x %x y %y"
     //% expandableArgumentMode=toggle
     //% inlineInputMode=inline
     //% blockSetVariable=seeward
