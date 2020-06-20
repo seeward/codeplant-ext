@@ -2,7 +2,7 @@
 * Sprite Wrapper for a Codeplant lessons
 */
 //% weight=100 color=#d2b48c 
-//% groups='["Create", "Movement", "Speak", "Properties"]'
+//% groups='["Create", "Movement", "Speak", "Properties", "Animations"]'
 namespace codeplant {
     export enum seewardFlags {
         None = 0,
@@ -851,7 +851,7 @@ class Seeward {
         this.player.ay = this.gravity;
         this.player.x = x;
         this.player.y = y;
-        
+
         this.playIdleRightAnimation();
 
     }
@@ -865,81 +865,13 @@ class Seeward {
     get sprite(): Sprite {
         return this.player;
     }
-
-
-    /**
-     * Make the character move in the direction indicated by the left and right arrow keys.
-     */
-    //% group="Movement"
-    //% blockId=horizontalMovement block="make %Seeward(seeward) move left and right with arrow keys || %on=toggleOnOff"
-    //% weight=100 blockGap=5
-    horizontalMovement(on: boolean = true): void {
-        let _this = this;
-
-        this.updateFlags(on, codeplant.seewardFlags.HorizontalMovement);
-
-        // game.onUpdate(function () {
-        //     if (!(_this.controlFlags & codeplant.seewardFlags.HorizontalMovement)) return;
-
-        //     let dir: number = controller.dx();
-
-        //     _this.player.vx = dir ? codeplant.normalize(dir) * _this.maxMoveVelocity :
-        //         codeplant.roundTowardsZero(_this.player.vx * _this.decelerationRate);
-        // })
-    }
-
-    /**
-     * Make the character jump when the up arrow key is pressed, and grab onto the wall when falling.
-     */
-    //% group="Movement"
-    //% blockId=verticalMovement block="make %Seeward(seeward) jump if up arrow key is pressed || %on=toggleOnOff"
-    //% weight=100 blockGap=5
-    verticalMovement(on: boolean = true): void {
-        let _this = this;
-
-        this.updateFlags(on, codeplant.seewardFlags.VerticalMovement);
-
-        controller.up.onEvent(ControllerButtonEvent.Released, function () {
-            _this.releasedJump = true;
-        })
-
-       
-    }
-
-    /**
-     * Set camera to follow Seeward horizontally, while keeping the screen centered vertically.
-     */
-    //% group="Movement"
-    //% blockId=followseeward block="make camera follow %Seeward(seeward) left and right || %on=toggleOnOff"
-    //% weight=90 blockGap=5
-    follow(on: boolean = true): void {
-        let _this = this;
-
-        this.updateFlags(on, codeplant.seewardFlags.CameraFollow);
-
-        game.onUpdate(function () {
-            if (_this.controlFlags & codeplant.seewardFlags.CameraFollow) {
-                scene.centerCameraAt(_this.player.x, screen.height >> 1);
-            }
-        })
-    }
-
-    /**
-     * Make the character change sprites when moving.
-     */
-    //% group="Movement"
-    //% blockId=updateSprite block="change image when %Seeward(seeward) is moving || %on=toggleOnOff"
-    //% weight=100 blockGap=5
-    updateSprite(on: boolean = true): void {
-        let _this = this;
-       
-    }
-
-
+    //% group="Animations"
+    //% blockId=seewardAttackLeft block="Attack Left"
+    //% weight=8
     playAttackLeftAnimation() {
-    animation.runImageAnimation(
-        this.sprite(),
-        [img`
+        animation.runImageAnimation(
+            this.sprite(),
+            [img`
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . 1 . . . . . f f e f e e . . .
             . . . . . . . . . . . . . . 1 b b . . . f e e f e e f e e .
@@ -965,7 +897,7 @@ class Seeward {
             . . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . .
             . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
             . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . 1 . . . . . f f e f e e . . .
             . . . . . . . . . . . . . . 1 b b . . . f e e f e e f e e .
@@ -991,7 +923,7 @@ class Seeward {
             . . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . .
             . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
             . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . 1 1 1 1 . . . . . . . . . . . . . .
             . . . . . . . . . . . 1 1 1 . . . . . . . . . . . . . . . .
             . . . . . . . . . 1 1 1 1 1 . . f f e f e e . . . . . . . .
@@ -1017,7 +949,7 @@ class Seeward {
             . 2 d b b . . . . . . . . . . . c c c . c c c . . . . . . .
             4 d b b . . 4 . . . . . . . . e e b . . e e b . . . . . . .
             2 4 b . 2 . . . . . . . . . . f f f . . f f f . . . . . . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . . . . f f e f e e . . . . . . .
             . . . . . . . . . . . . . . . . e e e f e e f e e . . . . .
@@ -1043,7 +975,7 @@ class Seeward {
             . 2 d b b . . . . . . . 4 . . . . 4 4 . . . 4 4 . . . . . .
             . d b b . . 4 . . . . . . . . . e e b . . e e b . . . . . .
             4 d b . 4 . . . . . . . . . . . f f f . . f f f . . . . . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . . . . . . f f e f e e . . . . . . .
             . . . . . . . . . . . . . . . . f e e f e e f e e . 1 1 . .
             . . . . . . . . . . . . . . . f e f f f e f e f e e . . . .
@@ -1069,7 +1001,7 @@ class Seeward {
             . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . . .
             . . . . . . . . . . . . . . . . e e b . . e e b . . . . . .
             . . . . . . . . . . . . . . . . f f f . . f f f . . . . . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . . . . . . . . f f e f e e . . . . .
             . . . . . . . . . . . . . . . . . . f e e f e e f e e . . .
             . . . . . . . . . . . . . . . . . f e f f f e f e f e e . .
@@ -1096,10 +1028,11 @@ class Seeward {
             . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
             . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
         `],
-        75,
-        false
-    )
-}
+            75,
+            false
+        )
+    }
+
 
     animateAttack(): void {
         animation.runImageAnimation(
@@ -1240,11 +1173,11 @@ class Seeward {
         )
     }
 
-    
-playUpDownAnimation() {
-    animation.runImageAnimation(
-        this.sprite(),
-        [img`
+
+    playUpDownAnimation() {
+        animation.runImageAnimation(
+            this.sprite(),
+            [img`
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
             . f f e f f f e f e f e .
@@ -1270,7 +1203,7 @@ playUpDownAnimation() {
             . . . 4 4 . . . 4 4 . . .
             . . . e e . . . e e . . .
             . . . f f . . . f f . . .
-       `, img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1296,7 +1229,7 @@ playUpDownAnimation() {
             . . . e e . . . 4 4 . . .
             . . . f f . . . e e . . .
             . . . . . . . . f f . . .
-       `, img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1322,7 +1255,7 @@ playUpDownAnimation() {
             . . . 4 4 . . . e e . . .
             . . . e e . . . f f . . .
             . . . f f . . . . . . . .
-       `, img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1348,7 +1281,7 @@ playUpDownAnimation() {
             . . . e e . . . 4 4 . . .
             . . . f f . . . e e . . .
             . . . . . . . . f f . . .
-       `, img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1375,14 +1308,16 @@ playUpDownAnimation() {
             . . . e e . . . f f . . .
             . . . f f . . . . . . . .
         `],
-        100,
-        true
-    )
-}
-playIdleRightAnimation() {
-    animation.runImageAnimation(
-        this.sprite(),
-        [img`
+            100,
+            true
+        )
+    }
+
+
+    playIdleRightAnimation() {
+        animation.runImageAnimation(
+            this.sprite(),
+            [img`
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
             . f f e f f f e f e f e .
@@ -1408,7 +1343,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1434,7 +1369,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1460,7 +1395,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . b e e . .
             . . . e e b . . f f f . .
             . . . f f f . . . . . . .
-        `,img`
+        `, img`
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
             . f f e f f f e f e f e .
@@ -1486,7 +1421,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
             . f f e f f f e f e f e .
@@ -1512,7 +1447,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
             . f f e f f f e f e f e .
@@ -1538,7 +1473,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1564,7 +1499,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1590,7 +1525,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1616,7 +1551,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1642,7 +1577,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1668,7 +1603,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1694,7 +1629,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1720,7 +1655,7 @@ playIdleRightAnimation() {
             . . . . 4 4 . . 4 4 . . .
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
-        `,img`
+        `, img`
             . . . . . . . . . . . . .
             . . . e f f e f e e . . .
             . . e f e e f e e f e . .
@@ -1747,10 +1682,11 @@ playIdleRightAnimation() {
             . . . e e b . . b e e . .
             . . . f f f . . f f f . .
         `],
-        100,
-        true
-    )
-}
+            100,
+            true
+        )
+    }
+
 
     playIdleBackAnimation(): void {
         animation.runImageAnimation(
@@ -1891,6 +1827,7 @@ playIdleRightAnimation() {
         )
     }
 
+
     playWalkLeftAnimation() {
         animation.runImageAnimation(
             this.sprite(),
@@ -2005,28 +1942,6 @@ playIdleRightAnimation() {
     }
 
 
-    private jumpImpulse() {
-        // if (this.remainingJump > 0 && this.releasedJump) {
-        //     this.releasedJump = false;
-        //     if (this.initJump) {
-        //         this.player.vy = -1 * this.jumpVelocity;
-        //         this.initJump = false;
-        //     } else {
-        //         this.player.vy = Math.clamp((-4 * this.jumpVelocity) / 3, -30,
-        //             this.player.vy - this.jumpVelocity);
-        //     }
-        //     this.remainingJump--;
-        // }
-    }
-
-    private updateFlags(on: boolean, flag: codeplant.seewardFlags): void {
-        if (on) this.controlFlags |= flag;
-        else this.controlFlags &= codeplant.seewardFlags.All ^ flag;
-    }
-
-    private pickNext(input: Image[], state: number = 3): Image {
-        return input[(this.count / state) % input.length];
-    }
 
     private contactLeft(): boolean {
         let screenEdge = game.currentScene().camera.offsetX;
