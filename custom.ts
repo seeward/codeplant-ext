@@ -1,9 +1,9 @@
 /**
-* Sprite Wrapper for a Corgi Platformer
+* Sprite Wrapper for a Codeplant lessons
 */
 //% weight=100 color=#d2b48c icon="\uf1b0"
 //% groups='["Create", "Movement", "Speak", "Properties"]'
-namespace corgio {
+namespace codeplant {
     export enum CorgiFlags {
         None = 0,
         HorizontalMovement = 1 << 0,
