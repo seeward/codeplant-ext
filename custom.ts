@@ -2,7 +2,7 @@
 * Sprite Wrapper for a Codeplant lessons
 */
 //% weight=100 color=#d2b48c 
-//% groups='["Create", "Properties", "Animations"]'
+//% groups='["Create Seeward", "Seeward Properties", "Seeward Animations"]'
 namespace codeplant {
     
     export enum seewardFlags {
@@ -759,7 +759,7 @@ namespace codeplant {
     //% inlineInputMode=inline
     //% blockSetVariable=seeward
     //% weight=100
-    //% group="Create"
+    //% group="Create Seeward"
     export function create(kind: number,
         x: number = 10,
         y: number = 70): Seeward {
@@ -769,7 +769,7 @@ namespace codeplant {
     }
     //% blockId=SeewardAttackLeft block="Seeward Attack Left Animation"
     //% weight=100
-    //% group="Animations"
+    //% group="Seeward Animations"
     export function playAttackLeftAnimation() {
         _seeward.playAttackLeftAnimation()
     }
@@ -862,7 +862,7 @@ class Seeward {
     /**
      * Get the Seeward's sprite
      */
-    //% group="Properties"
+    //% group="Seeward Properties"
     //% blockId=seewardSprite block="%Seeward(seeward) sprite"
     //% weight=8
     get sprite(): Sprite {
