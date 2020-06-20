@@ -10,7 +10,7 @@
         "custom.ts"
     ],
     "preferredEditor": "tsprj",
-    "icon": "https://pxt.azureedge.net/blob/a052fdd86d54009f6f682a405b87c332912be5ea/static/libs/corgio.png",
+    "icon": "https://assets.codepen.io/1437512/logo.png",
     "testFiles": [
         "test.ts"
     ]
