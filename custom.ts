@@ -439,26 +439,7 @@ class Seeward {
         })
     }
 
-    /**
-     * Add new phrase for the character to bark
-     * @param input phrase to add to script, eg: "bark"
-     */
-    //% group="Speak"
-    //% blockId=addScript block="teach %Seeward(seeward) the word %input"
-    //% weight=95 blockGap=5
-    addToScript(input: string): void {
-        this.script.push(input);
-    }
-
-    /**
-     * Have the character say one of the phrases in the script at random
-     */
-    //% group="Speak"
-    //% blockId=bark block="make %Seeward(seeward) bark!"
-    //% weight=95 blockGap=5
-    bark(): void {
-        this.player.say(Math.pickRandom(this.script), 250);
-    }
+    
 
     private jumpImpulse() {
         if (this.remainingJump > 0 && this.releasedJump) {
