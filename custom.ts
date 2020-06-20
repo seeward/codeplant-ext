@@ -2,7 +2,7 @@
 * Sprite Wrapper for a Codeplant lessons
 */
 //% weight=100 color=#d2b48c 
-//% groups='["Create", "Movement", "Speak", "Properties", "Animations"]'
+//% groups='["Create", "Properties", "Animations"]'
 namespace codeplant {
     
     export enum seewardFlags {
@@ -14,6 +14,7 @@ namespace codeplant {
         All = ~(~0 << 4)
     }
 
+    let _seeward: Seeward = null
     export let _seeward_still: Image[] = [img`
         . . . e f f e f e e . . .
         . . e f e e f e e f e . .
@@ -747,7 +748,6 @@ namespace codeplant {
     `]
 
     export let _seeward_left: Image[] = reflect(_seeward_right);
-
     /**
      * Creates a new dart from an image and kind
      * @param kind the kind to make the seeward 
@@ -763,9 +763,15 @@ namespace codeplant {
     export function create(kind: number,
         x: number = 10,
         y: number = 70): Seeward {
+        _seeward = new Seeward(kind, x, y);
+        return _seeward
 
-        return new Seeward(kind, x, y);
-
+    }
+    //% blockId=seewardAttackLeft block="Play Attack Left"
+    //% weight=100
+    //% group="Animations"
+    export function playAttackLeftAnimation() {
+        _seeward.playAttackLeftAnimation()
     }
 
     
@@ -803,20 +809,14 @@ class Seeward {
     private _leftAnimation: Image[];
     private _rightAnimation: Image[];
 
-    //% group="Properties" blockSetVariable="seeward"
-    //% blockCombine block="horizontal speed"
     maxMoveVelocity: number;
-    //% group="Properties" blockSetVariable="seeward"
-    //% blockCombine block="gravity"
+   
     gravity: number;
-    //% group="Properties" blockSetVariable="seeward"
-    //% blockCombine block="jump speed"
+    
     jumpVelocity: number;
-    //% group="Properties" blockSetVariable="seeward"
-    //% blockCombine block="max jumps in a row"
+  
     maxJump: number;
-    //% group="Properties" blockSetVariable="seeward"
-    //% blockCombine block="rate horizontal movement is slowed"
+   
     decelerationRate: number;
 
     private controlFlags: number;
