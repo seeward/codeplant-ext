@@ -1,0 +1,17 @@
+{
+    "name": "codeplant-ext",
+    "dependencies": {
+        "device": "*",
+        "game": "*"
+    },
+    "description": "",
+    "files": [
+        "README.md",
+        "custom.ts"
+    ],
+    "preferredEditor": "tsprj",
+    "icon": "https://pxt.azureedge.net/blob/a052fdd86d54009f6f682a405b87c332912be5ea/static/libs/corgio.png",
+    "testFiles": [
+        "test.ts"
+    ]
+}
