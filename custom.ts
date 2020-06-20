@@ -308,11 +308,11 @@ class Corgio {
             "bark"
         ];
 
-        this.controlFlags = corgio.CorgiFlags.None;
+        this.controlFlags = codeplant.CorgiFlags.None;
 
-        this.stillAnimation = corgio._corgi_still;
-        this._leftAnimation = corgio._corgi_left;
-        this._rightAnimation = corgio._corgi_right;
+        this.stillAnimation = codeplant._corgi_still;
+        this._leftAnimation = codeplant._corgi_left;
+        this._rightAnimation = codeplant._corgi_right;
 
         this.player = sprites.create(this.stillAnimation[0], kind);
         this.player.setFlag(SpriteFlag.StayInScreen, true);
@@ -340,15 +340,15 @@ class Corgio {
     horizontalMovement(on: boolean = true): void {
         let _this = this;
 
-        this.updateFlags(on, corgio.CorgiFlags.HorizontalMovement);
+        this.updateFlags(on, codeplant.CorgiFlags.HorizontalMovement);
 
         game.onUpdate(function () {
-            if (!(_this.controlFlags & corgio.CorgiFlags.HorizontalMovement)) return;
+            if (!(_this.controlFlags & codeplant.CorgiFlags.HorizontalMovement)) return;
 
             let dir: number = controller.dx();
 
-            _this.player.vx = dir ? corgio.normalize(dir) * _this.maxMoveVelocity :
-                corgio.roundTowardsZero(_this.player.vx * _this.decelerationRate);
+            _this.player.vx = dir ? codeplant.normalize(dir) * _this.maxMoveVelocity :
+                codeplant.roundTowardsZero(_this.player.vx * _this.decelerationRate);
         })
     }
 
@@ -361,14 +361,14 @@ class Corgio {
     verticalMovement(on: boolean = true): void {
         let _this = this;
 
-        this.updateFlags(on, corgio.CorgiFlags.VerticalMovement);
+        this.updateFlags(on, codeplant.CorgiFlags.VerticalMovement);
 
         controller.up.onEvent(ControllerButtonEvent.Released, function () {
             _this.releasedJump = true;
         })
 
         game.onUpdate(function () {
-            if (!(_this.controlFlags & corgio.CorgiFlags.VerticalMovement)) return;
+            if (!(_this.controlFlags & codeplant.CorgiFlags.VerticalMovement)) return;
 
             if (controller.up.isPressed()) {
                 if (_this.contactLeft() && controller.right.isPressed()
@@ -404,10 +404,10 @@ class Corgio {
     follow(on: boolean = true): void {
         let _this = this;
 
-        this.updateFlags(on, corgio.CorgiFlags.CameraFollow);
+        this.updateFlags(on, codeplant.CorgiFlags.CameraFollow);
 
         game.onUpdate(function () {
-            if (_this.controlFlags & corgio.CorgiFlags.CameraFollow) {
+            if (_this.controlFlags & codeplant.CorgiFlags.CameraFollow) {
                 scene.centerCameraAt(_this.player.x, screen.height >> 1);
             }
         })
@@ -422,10 +422,10 @@ class Corgio {
     updateSprite(on: boolean = true): void {
         let _this = this;
 
-        this.updateFlags(on, corgio.CorgiFlags.UpdateSprite);
+        this.updateFlags(on, codeplant.CorgiFlags.UpdateSprite);
 
         game.onUpdate(function () {
-            if (!(_this.controlFlags & corgio.CorgiFlags.UpdateSprite)) return;
+            if (!(_this.controlFlags & codeplant.CorgiFlags.UpdateSprite)) return;
 
             _this.count++;
 
@@ -474,9 +474,9 @@ class Corgio {
         }
     }
 
-    private updateFlags(on: boolean, flag: corgio.CorgiFlags): void {
+    private updateFlags(on: boolean, flag: codeplant.CorgiFlags): void {
         if (on) this.controlFlags |= flag;
-        else this.controlFlags &= corgio.CorgiFlags.All ^ flag;
+        else this.controlFlags &= codeplant.CorgiFlags.All ^ flag;
     }
 
     private pickNext(input: Image[], state: number = 3): Image {
