@@ -767,6 +767,7 @@ namespace codeplant {
 
     }
 
+
     // Round input towards 0; 1.4 becomes 1.0, -0.4 becomes 0.0
     export function roundTowardsZero(input: number): number {
         return Math.floor(input) + input < 0 ? 1 : 0;
@@ -998,9 +999,111 @@ class Seeward {
         return this.player;
     }
 
-    //% blockId=seewardAttack block="Attack"
-    //% weight=8
-    public animateAttack():void {
+
+    /**
+     * Make the character move in the direction indicated by the left and right arrow keys.
+     */
+    //% group="Movement"
+    //% blockId=horizontalMovement block="make %Seeward(seeward) move left and right with arrow keys || %on=toggleOnOff"
+    //% weight=100 blockGap=5
+    horizontalMovement(on: boolean = true): void {
+        let _this = this;
+
+        this.updateFlags(on, codeplant.seewardFlags.HorizontalMovement);
+
+        game.onUpdate(function () {
+            if (!(_this.controlFlags & codeplant.seewardFlags.HorizontalMovement)) return;
+
+            let dir: number = controller.dx();
+
+            _this.player.vx = dir ? codeplant.normalize(dir) * _this.maxMoveVelocity :
+                codeplant.roundTowardsZero(_this.player.vx * _this.decelerationRate);
+        })
+    }
+
+    /**
+     * Make the character jump when the up arrow key is pressed, and grab onto the wall when falling.
+     */
+    //% group="Movement"
+    //% blockId=verticalMovement block="make %Seeward(seeward) jump if up arrow key is pressed || %on=toggleOnOff"
+    //% weight=100 blockGap=5
+    verticalMovement(on: boolean = true): void {
+        let _this = this;
+
+        this.updateFlags(on, codeplant.seewardFlags.VerticalMovement);
+
+        controller.up.onEvent(ControllerButtonEvent.Released, function () {
+            _this.releasedJump = true;
+        })
+
+        game.onUpdate(function () {
+            if (!(_this.controlFlags & codeplant.seewardFlags.VerticalMovement)) return;
+
+            if (controller.up.isPressed()) {
+                if (_this.contactLeft() && controller.right.isPressed()
+                    || _this.contactRight() && controller.left.isPressed()) {
+                    _this.remainingJump = Math.max(_this.remainingJump + 1, _this.maxJump);
+                }
+                _this.jumpImpulse();
+            }
+
+            if ((_this.contactLeft() && controller.left.isPressed()
+                || _this.contactRight() && controller.right.isPressed())
+                && _this.player.vy > - 10) {
+                _this.player.ay = _this.gravity >> 2;
+            } else {
+                _this.player.ay = _this.gravity;
+            }
+
+            if (_this.contactBelow()) {
+                if (_this.initJump) {
+                    _this.remainingJump = _this.maxJump;
+                }
+                _this.initJump = true;
+            }
+        })
+    }
+
+    /**
+     * Set camera to follow Seeward horizontally, while keeping the screen centered vertically.
+     */
+    //% group="Movement"
+    //% blockId=followseeward block="make camera follow %Seeward(seeward) left and right || %on=toggleOnOff"
+    //% weight=90 blockGap=5
+    follow(on: boolean = true): void {
+        let _this = this;
+
+        this.updateFlags(on, codeplant.seewardFlags.CameraFollow);
+
+        game.onUpdate(function () {
+            if (_this.controlFlags & codeplant.seewardFlags.CameraFollow) {
+                scene.centerCameraAt(_this.player.x, screen.height >> 1);
+            }
+        })
+    }
+
+    /**
+     * Make the character change sprites when moving.
+     */
+    //% group="Movement"
+    //% blockId=updateSprite block="change image when %Seeward(seeward) is moving || %on=toggleOnOff"
+    //% weight=100 blockGap=5
+    updateSprite(on: boolean = true): void {
+        let _this = this;
+
+        this.updateFlags(on, codeplant.seewardFlags.UpdateSprite);
+
+        game.onUpdate(function () {
+            if (!(_this.controlFlags & codeplant.seewardFlags.UpdateSprite)) return;
+
+            _this.count++;
+
+            this.animateAttack()
+        })
+    }
+
+    
+    animateAttack(): void {
         animation.runImageAnimation(
             this.sprite(),
             [img`
@@ -1138,117 +1241,6 @@ class Seeward {
             false
         )
     }
-
-    /**
-     * Make the character move in the direction indicated by the left and right arrow keys.
-     */
-    //% group="Movement"
-    //% blockId=horizontalMovement block="make %Seeward(seeward) move left and right with arrow keys || %on=toggleOnOff"
-    //% weight=100 blockGap=5
-    horizontalMovement(on: boolean = true): void {
-        let _this = this;
-
-        this.updateFlags(on, codeplant.seewardFlags.HorizontalMovement);
-
-        game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.seewardFlags.HorizontalMovement)) return;
-
-            let dir: number = controller.dx();
-
-            _this.player.vx = dir ? codeplant.normalize(dir) * _this.maxMoveVelocity :
-                codeplant.roundTowardsZero(_this.player.vx * _this.decelerationRate);
-        })
-    }
-
-    /**
-     * Make the character jump when the up arrow key is pressed, and grab onto the wall when falling.
-     */
-    //% group="Movement"
-    //% blockId=verticalMovement block="make %Seeward(seeward) jump if up arrow key is pressed || %on=toggleOnOff"
-    //% weight=100 blockGap=5
-    verticalMovement(on: boolean = true): void {
-        let _this = this;
-
-        this.updateFlags(on, codeplant.seewardFlags.VerticalMovement);
-
-        controller.up.onEvent(ControllerButtonEvent.Released, function () {
-            _this.releasedJump = true;
-        })
-
-        game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.seewardFlags.VerticalMovement)) return;
-
-            if (controller.up.isPressed()) {
-                if (_this.contactLeft() && controller.right.isPressed()
-                    || _this.contactRight() && controller.left.isPressed()) {
-                    _this.remainingJump = Math.max(_this.remainingJump + 1, _this.maxJump);
-                }
-                _this.jumpImpulse();
-            }
-
-            if ((_this.contactLeft() && controller.left.isPressed()
-                || _this.contactRight() && controller.right.isPressed())
-                && _this.player.vy > - 10) {
-                _this.player.ay = _this.gravity >> 2;
-            } else {
-                _this.player.ay = _this.gravity;
-            }
-
-            if (_this.contactBelow()) {
-                if (_this.initJump) {
-                    _this.remainingJump = _this.maxJump;
-                }
-                _this.initJump = true;
-            }
-        })
-    }
-
-    /**
-     * Set camera to follow Seeward horizontally, while keeping the screen centered vertically.
-     */
-    //% group="Movement"
-    //% blockId=followseeward block="make camera follow %Seeward(seeward) left and right || %on=toggleOnOff"
-    //% weight=90 blockGap=5
-    follow(on: boolean = true): void {
-        let _this = this;
-
-        this.updateFlags(on, codeplant.seewardFlags.CameraFollow);
-
-        game.onUpdate(function () {
-            if (_this.controlFlags & codeplant.seewardFlags.CameraFollow) {
-                scene.centerCameraAt(_this.player.x, screen.height >> 1);
-            }
-        })
-    }
-
-    /**
-     * Make the character change sprites when moving.
-     */
-    //% group="Movement"
-    //% blockId=updateSprite block="change image when %Seeward(seeward) is moving || %on=toggleOnOff"
-    //% weight=100 blockGap=5
-    updateSprite(on: boolean = true): void {
-        let _this = this;
-
-        this.updateFlags(on, codeplant.seewardFlags.UpdateSprite);
-
-        game.onUpdate(function () {
-            if (!(_this.controlFlags & codeplant.seewardFlags.UpdateSprite)) return;
-
-            _this.count++;
-
-            if (_this.player.vx == 0) {
-                _this.player.setImage(_this.pickNext(_this.stillAnimation, 6));
-            } else if (_this.player.vx < 0) {
-                _this.player.setImage(_this.pickNext(_this._leftAnimation));
-            } else {
-                _this.player.setImage(_this.pickNext(_this._rightAnimation));
-            }
-        })
-    }
-
-    
-
     private jumpImpulse() {
         if (this.remainingJump > 0 && this.releasedJump) {
             this.releasedJump = false;
