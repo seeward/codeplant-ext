@@ -4,6 +4,7 @@
 //% weight=100 color=#d2b48c 
 //% groups='["Create", "Movement", "Speak", "Properties", "Animations"]'
 namespace codeplant {
+    
     export enum seewardFlags {
         None = 0,
         HorizontalMovement = 1 << 0,
@@ -767,6 +768,8 @@ namespace codeplant {
 
     }
 
+    
+
 
     // Round input towards 0; 1.4 becomes 1.0, -0.4 becomes 0.0
     export function roundTowardsZero(input: number): number {
@@ -870,7 +873,7 @@ class Seeward {
     //% weight=8
     playAttackLeftAnimation() {
         return animation.runImageAnimation(
-            this.sprite(),
+            this.player,
             [img`
                 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
                 . . . . . . . . . . . . . . . 1 . . . . . f f e f e e . . .
@@ -897,7 +900,7 @@ class Seeward {
                 . . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . .
                 . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
                 . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
                 . . . . . . . . . . . . . . . 1 . . . . . f f e f e e . . .
                 . . . . . . . . . . . . . . 1 b b . . . f e e f e e f e e .
@@ -923,7 +926,7 @@ class Seeward {
                 . . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . .
                 . . . . . . . . . . . . . . . . . e e b . . e e b . . . . .
                 . . . . . . . . . . . . . . . . . f f f . . f f f . . . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . 1 1 1 1 . . . . . . . . . . . . . .
                 . . . . . . . . . . . 1 1 1 . . . . . . . . . . . . . . . .
                 . . . . . . . . . 1 1 1 1 1 . . f f e f e e . . . . . . . .
@@ -949,7 +952,7 @@ class Seeward {
                 . 2 d b b . . . . . . . . . . . c c c . c c c . . . . . . .
                 4 d b b . . 4 . . . . . . . . e e b . . e e b . . . . . . .
                 2 4 b . 2 . . . . . . . . . . f f f . . f f f . . . . . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
                 . . . . . . . . . . . . . . . . . f f e f e e . . . . . . .
                 . . . . . . . . . . . . . . . . e e e f e e f e e . . . . .
@@ -975,7 +978,7 @@ class Seeward {
                 . 2 d b b . . . . . . . 4 . . . . 4 4 . . . 4 4 . . . . . .
                 . d b b . . 4 . . . . . . . . . e e b . . e e b . . . . . .
                 4 d b . 4 . . . . . . . . . . . f f f . . f f f . . . . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . . . . . . f f e f e e . . . . . . .
                 . . . . . . . . . . . . . . . . f e e f e e f e e . 1 1 . .
                 . . . . . . . . . . . . . . . f e f f f e f e f e e . . . .
@@ -1001,7 +1004,7 @@ class Seeward {
                 . . . . . . . . . . . . . . . . . 4 4 . . . 4 4 . . . . . .
                 . . . . . . . . . . . . . . . . e e b . . e e b . . . . . .
                 . . . . . . . . . . . . . . . . f f f . . f f f . . . . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . . . . . . . . f f e f e e . . . . .
                 . . . . . . . . . . . . . . . . . . f e e f e e f e e . . .
                 . . . . . . . . . . . . . . . . . f e f f f e f e f e e . .
@@ -1036,7 +1039,7 @@ class Seeward {
 
     animateAttack(): void {
         animation.runImageAnimation(
-            this.sprite(),
+            this.player,
             [img`
                 . . . . . . e f f e f e e . . . . . . . . . . . . . .
                 . . . . . e f e e f e e f e . . . . . . . . . . . . .
@@ -1176,7 +1179,7 @@ class Seeward {
 
     playUpDownAnimation() {
         animation.runImageAnimation(
-            this.sprite(),
+            this.player,
             [img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1203,7 +1206,7 @@ class Seeward {
                 . . . 4 4 . . . 4 4 . . .
                 . . . e e . . . e e . . .
                 . . . f f . . . f f . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1229,7 +1232,7 @@ class Seeward {
                 . . . e e . . . 4 4 . . .
                 . . . f f . . . e e . . .
                 . . . . . . . . f f . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1255,7 +1258,7 @@ class Seeward {
                 . . . 4 4 . . . e e . . .
                 . . . e e . . . f f . . .
                 . . . f f . . . . . . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1281,7 +1284,7 @@ class Seeward {
                 . . . e e . . . 4 4 . . .
                 . . . f f . . . e e . . .
                 . . . . . . . . f f . . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1316,7 +1319,7 @@ class Seeward {
 
     playIdleRightAnimation() {
         animation.runImageAnimation(
-            this.sprite(),
+            this.player,
             [img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1343,7 +1346,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1369,7 +1372,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1395,7 +1398,7 @@ class Seeward {
                 . . . . 4 4 . . b e e . .
                 . . . e e b . . f f f . .
                 . . . f f f . . . . . . .
-           `, img`
+            `,img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
                 . f f e f f f e f e f e .
@@ -1421,7 +1424,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
                 . f f e f f f e f e f e .
@@ -1447,7 +1450,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
                 . f f e f f f e f e f e .
@@ -1473,7 +1476,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1499,7 +1502,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1525,7 +1528,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1551,7 +1554,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1577,7 +1580,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1603,7 +1606,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1629,7 +1632,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1655,7 +1658,7 @@ class Seeward {
                 . . . . 4 4 . . 4 4 . . .
                 . . . e e b . . b e e . .
                 . . . f f f . . f f f . .
-           `, img`
+            `,img`
                 . . . . . . . . . . . . .
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1690,7 +1693,7 @@ class Seeward {
 
     playIdleBackAnimation(): void {
         animation.runImageAnimation(
-            this.sprite(),
+            this.player,
             [img`
                 . . . e f f e f e e . . .
                 . . e f e e f e e f e . .
@@ -1830,7 +1833,7 @@ class Seeward {
 
     playWalkLeftAnimation() {
         animation.runImageAnimation(
-            this.sprite(),
+            this.player,
             [img`
                 . . . . f f e f e e . . .
                 . . . f e e f e e f e e .
