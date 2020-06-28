@@ -759,6 +759,27 @@ namespace codeplant.seeward {
         return _seeward
 
     }
+
+    enum AnimationTypes {
+        AttackLeft,
+        AttackRight
+    }
+
+    //% blockId=PlayAnimation block="Seeward play %a Animation"
+    //% weight=100
+    //% group="Seeward Animations"
+    export function playAnimation(a: AnimationTypes) {
+        switch(a){
+            case AnimationTypes.AttackLeft: 
+                _seeward.playAttackLeftAnimation();
+                break
+            case AnimationTypes.AttackRight: 
+                _seeward.animateAttack();
+                break
+        }
+        
+    }
+
     //% blockId=SeewardAttackLeft block="Seeward Attack Left Animation"
     //% weight=100
     //% group="Seeward Animations"
