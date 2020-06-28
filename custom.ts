@@ -759,13 +759,14 @@ namespace codeplant.seeward {
         return _seeward
 
     }
-
+    //% block
     enum AnimationTypes {
         AttackLeft,
         AttackRight
     }
-
-    //% blockId=PlayAnimation block="Seeward play %a Animation"
+    
+    //% block="Seeward play %a=AnimationTypes Animation"
+    //% blockId=PlayAnimation
     //% weight=100
     //% group="Seeward Animations"
     export function playAnimation(a: AnimationTypes) {
