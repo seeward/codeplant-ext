@@ -764,21 +764,21 @@ namespace codeplant.seeward {
         AttackLeft,
         AttackRight
     }
-    
+
     //% block="Seeward play %a=AnimationTypes Animation"
     //% blockId=PlayAnimation
     //% weight=100
     //% group="Seeward Animations"
     export function playAnimation(a: AnimationTypes) {
-        switch(a){
-            case AnimationTypes.AttackLeft: 
+        switch (a) {
+            case AnimationTypes.AttackLeft:
                 _seeward.playAttackLeftAnimation();
                 break
-            case AnimationTypes.AttackRight: 
+            case AnimationTypes.AttackRight:
                 _seeward.animateAttack();
                 break
         }
-        
+
     }
 
     //% blockId=SeewardAttackLeft block="Seeward Attack Left Animation"
